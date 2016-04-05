@@ -1,3 +1,5 @@
+(function(){
+  
 // Coded by Peter
 // Particles
 // https://github.com/Bush95
@@ -67,13 +69,13 @@ var move = function(p) { //moving every particle
 };
 
 var update_stats = function() { //Showing currrent config to the user 
-  let max_particles = document.querySelector('#stat_max-particles');
-  let follow_cursor = document.querySelector('#stat_follow-cursor');
-  let random_spawn = document.querySelector('#stat_random-spawn');
-  let explode = document.querySelector('#stat_explode');
-  let explode_p_num = document.querySelector('#stat_explode-p-num');
-  let p_speed_x = document.querySelector('#stat_p-speed-x');
-  let p_speed_y = document.querySelector('#stat_p-speed-y');
+  var max_particles = document.querySelector('#stat_max-particles');
+  var follow_cursor = document.querySelector('#stat_follow-cursor');
+  var random_spawn = document.querySelector('#stat_random-spawn');
+  var explode = document.querySelector('#stat_explode');
+  var explode_p_num = document.querySelector('#stat_explode-p-num');
+  var p_speed_x = document.querySelector('#stat_p-speed-x');
+  var p_speed_y = document.querySelector('#stat_p-speed-y');
 
   max_particles.innerHTML = particles.length;
   follow_cursor.innerHTML = options.follow;
@@ -89,29 +91,27 @@ var resize_canvas = function() {
   canvas.height = canvas.parentNode.offsetHeight;
 };
 
-var add_listener = function(element, type, listener, useCapture){ //add event listener with IE support
+var add_listener = function(element, type, listener, useCapture) { //add event listener with IE support
   if (!useCapture)
     useCapture = false;
-  
+
   if (element.addEventListener) {
     element.addEventListener(type, listener, useCapture);
-  } 
-  else if (type.attachEvent) {
-    element.attachEvent('on'+type, listener);
+  } else if (type.attachEvent) {
+    element.attachEvent('on' + type, listener);
   } else {
     console.log('An error occurred while adding event listener');
   }
 };
 
-var remove_listener = function(element, type, listener, useCapture){  //remove event listener with IE support
-    if (!useCapture)
+var remove_listener = function(element, type, listener, useCapture) { //remove event listener with IE support
+  if (!useCapture)
     useCapture = false;
-  
+
   if (element.removeEventListener) {
     element.removeEventListener(type, listener, useCapture);
-  } 
-  else if (type.detachEvent) {
-    element.detachEvent('on'+type, listener);
+  } else if (type.detachEvent) {
+    element.detachEvent('on' + type, listener);
   } else {
     console.log('An error occurred while removing event listener');
   }
@@ -121,8 +121,8 @@ var apply_listeners = function() {
   var set_config = function(e) {
     e.preventDefault();
     document.querySelector('.progress-bar').classList.add('progress-animated');
-    
-    setTimeout(function(){
+
+    setTimeout(function() {
       document.querySelector('.progress-bar').classList.remove('progress-animated');
     }, 500);
     document.querySelector('.welcome-popup').style.display = "none";
@@ -140,14 +140,14 @@ var apply_listeners = function() {
 
   add_listener(document.querySelector('#config'), 'submit', set_config, false);
   add_listener(window, 'resize', resize_canvas, false);
-  add_listener(document.querySelector('#cfg_explode'), 'click', function(){
-    let explode_p_num = document.querySelector('#cfg_explode-p-num');
+  add_listener(document.querySelector('#cfg_explode'), 'click', function() {
+    var explode_p_num = document.querySelector('#cfg_explode-p-num');
     this.checked ? explode_p_num.removeAttribute('disabled') : explode_p_num.setAttribute('disabled', true);
-    }, false);
+  }, false);
 };
 
 var update_effects = function() {
-  options.explode ? add_listener(canvas, 'click', effect.explode, false): remove_listener(canvas, 'click', effect.explode, false);
+  options.explode ? add_listener(canvas, 'click', effect.explode, false) : remove_listener(canvas, 'click', effect.explode, false);
   options.follow ? add_listener(canvas, 'mousemove', effect.follow_mouse, false) : remove_listener(canvas, 'mousemove', effect.follow_mouse, false);
 };
 
@@ -172,10 +172,46 @@ var loop = function() {
   window.requestAnimationFrame(loop);
 };
 
+
+// fix to requestAnimationFrame in safari:
+
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+// MIT license
+
+(function() {
+  var lastTime = 0;
+  var vendors = ['ms', 'moz', 'webkit', 'o'];
+  for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
+      window[vendors[x] + 'CancelRequestAnimationFrame'];
+  }
+
+  if (!window.requestAnimationFrame)
+    window.requestAnimationFrame = function(callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+      var id = window.setTimeout(function() {
+          callback(currTime + timeToCall);
+        },
+        timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
+    };
+
+  if (!window.cancelAnimationFrame)
+    window.cancelAnimationFrame = function(id) {
+      clearTimeout(id);
+    };
+}());
 //Main event
-add_listener(window,'load', function() {
+add_listener(window, 'load', function() {
   set_default_config();
   resize_canvas();
   apply_listeners();
   window.requestAnimationFrame(loop);
 }, false);
+  
+})();
