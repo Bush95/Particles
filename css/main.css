@@ -6,6 +6,7 @@ html {
   font-size: 62.5%;
 }
 body {
+  font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.4;
   white-space: nowrap;
@@ -22,17 +23,18 @@ body {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 .canvas-container {
-  min-height: 200px;
+  height: 400px;
   overflow: hidden;
   -webkit-box-flex: 1;
+  -ms-flex: 1;
   -webkit-flex: 1;
-      -ms-flex: 1;
           flex: 1;
   position: relative;
+  font-size: 24px;
 }
 .canvas-container .welcome-popup {
   position: absolute;
@@ -43,13 +45,14 @@ body {
   line-height: 200px;
   background-color: white;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   border-radius: 14px;
   text-align: center;
+  font-size: 24px;
   font-size: 2.4rem;
   font-weight: 600;
 }
-.canvas-container .welcome-popup::after {
+.canvas-container .welcome-popup:after {
   display: block;
   content: ' ';
   width: 0;
@@ -59,8 +62,12 @@ body {
   border-top-color: white;
 }
 .canvas-options {
+  overflow-x: hidden;
+  filter: alpha(opacity=0);
+  filter: alpha(opacity=100);
   position: relative;
   min-height: 300px;
+  font-size: 14px;
   box-shadow: 0 -3px 0px 0px #464646;
   color: #FFFFFF;
   display: -webkit-box;
@@ -82,7 +89,7 @@ body {
 }
 .canvas-options .progress-animated {
   -webkit-animation: progress 500ms linear;
-          animation: progress 500ms linear;
+  animation: progress 500ms linear;
 }
 @keyframes progress {
   0% {
@@ -91,10 +98,12 @@ body {
   70% {
     width: 100%;
     opacity: 1;
+    filter: alpha(opacity=100);
   }
   100% {
     width: 100%;
     opacity: 0;
+    filter: alpha(opacity=0);
   }
 }
 @-webkit-keyframes progress {
@@ -104,15 +113,18 @@ body {
   70% {
     width: 100%;
     opacity: 1;
+    filter: alpha(opacity=100);
   }
   100% {
     width: 100%;
     opacity: 0;
+    filter: alpha(opacity=0);
   }
 }
 .canvas-options .stat-list {
   pointer-events: none;
   min-width: 230px;
+  font-size: 14px;
   font-size: 1.4rem;
   text-decoration: none;
   padding: 0;
