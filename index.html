@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Particles</title>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<main class="main-page">
+		<div class="canvas-container">
+			<canvas id="particles"></canvas>
+			<div class="welcome-popup">Set your config to begin</div>
+		</div>
+		<div class="canvas-options">
+			<div class="progress-bar"></div>
+			<ul class="stat-list">
+				<li>Particles: <span class="stat-value" id="stat_max-particles"></span></li>
+				<li>Cursor follow: <span class="stat-value" id="stat_follow-cursor"></span></li>
+				<li>Random spawn: <span class="stat-value" id="stat_random-spawn"></span></li>
+				<li>Explode: <span class="stat-value" id="stat_explode"></span></li>
+				<li>Explode particles number: <span class="stat-value" id="stat_explode-p-num"></span></li>
+				<li>Speed X: <span class="stat-value" id="stat_p-speed-x"></span></li>
+				<li>Speed Y: <span class="stat-value" id="stat_p-speed-y"></span></li>
+			</ul>
+			<form id="config">
+				<ul class="config-list">
+					<li>
+						<input type="number" id="cfg_max-particles" placeholder="1000" />
+						<label for="cfg-particles">Max particles number</label>
+					</li>
+					<li>
+						<input type="checkbox" id="cfg_random-spawn" />
+						<label for="cfg_random-spawn">Random Particles spawn</label>
+					</li>
+					<li>
+						<input type="checkbox" id="cfg_follow-cursor" />
+						<label for="cfg_follow-cursor">Cursor follow</label>
+					</li>
+					<li>
+						<input type="checkbox" id="cfg_explode" />
+						<label for="cfg_explode">Explode</label>
+					</li>
+					<li>
+						<input type="number" id="cfg_explode-p-num" disabled/>
+						<label for="cfg_explode-p-num">Particles on explode</label>
+					</li>
+					<li>
+						<input type="number" id="cfg_p-speed-x" />
+						<label for="cfg_p-speed-x">Particle speed X</label>
+					</li>
+					<li>
+						<input type="number" id="cfg_p-speed-y" />
+						<label for="cfg_p-speed-y">Particle speed Y</label>
+					</li>
+					<li>
+						<button class="submit-btn" type="submit">Apply</button>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</main>
+	<script src="js/main.js"></script>
+</body>
+</html>
